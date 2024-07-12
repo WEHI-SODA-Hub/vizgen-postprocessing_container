@@ -26,7 +26,14 @@ jobs:
         run: |
            singularity build container.sif Apptainer
 
-      - name: Login and Deploy Container
+      - name: Add ORAS Remote
         run: |
-           echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ secrets.GHCR_USERNAME }} --password-stdin oras://ghcr.io
-           singularity push container.sif oras://ghcr.io/${GITHUB_REPOSITORY}:${tag}
+           singularity remote add --no-login ghcr oras://ghcr.io
+
+      - name: Login to ORAS Remote
+        run: |
+           echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin ghcr
+
+      - name: Deploy Container
+        run: |
+           singularity push container.sif oras://ghcr.io/${{ github.repository }}:${{ github.ref_name }}
