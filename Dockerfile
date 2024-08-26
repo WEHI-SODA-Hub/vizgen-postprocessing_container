@@ -4,6 +4,10 @@ SHELL ["/bin/bash", "-c"]
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+ENV MPLCONFIGDIR=/tmp/mpl_cache
+ENV NUMBA_CACHE_DIR=/tmp/numba_cache
+ENV CELLPOSE_LOCAL_MODELS_PATH=/tmp/cellpose_models
+
 # Install system libraries
 RUN apt-get update && \
     apt-get install -y \
