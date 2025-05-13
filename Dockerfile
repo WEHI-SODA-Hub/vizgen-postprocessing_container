@@ -23,18 +23,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Nextflow
-RUN curl -fsSL get.nextflow.io | bash && \
-    mv nextflow -t /root && \
-    /root/nextflow self-update
-
-# Install aws cli
-RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip --output awscli-exe-linux-x86_64.zip && \
-    unzip awscli-exe-linux-x86_64.zip && \
-    ./aws/install && \
-    rm awscli-exe-linux-x86_64.zip && \
-    rm -rf /aws
-
 # Install vpt
 RUN pip install --upgrade pip && \
     pip install vpt && \
